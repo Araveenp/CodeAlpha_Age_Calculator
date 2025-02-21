@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    body{
+        width: 100%;
+        min-height: 100vh;
+        background: linear-gradient(130deg,darkblue, blue,lightblue); 
+    }
+    .container{
+        color: white;
+        padding: 20px;
+    }
+    .calculator{
+        width: 100%;
+        max-width: 600px;
+        margin-left: 10%;
+        margin-right: 10%;
+        margin-top: 100px;
+    }
+    .container h1{
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        font-size: 70px;
+        color: rgb(216, 79, 19);
+        text-shadow: 3px 1px 2px white;
+    }
+    .box{
+        margin: 40px 0px;
+        padding: 35px;
+        border-radius: 10px;
+        background-color: rgba(255,255,255,0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .box input{
+        flex: 1;
+        flex-wrap: wrap;
+        margin-right: 20px;
+        padding: 14px 0px;
+        border: 0;
+        outline: 0;
+        font-size: 23px;
+        border-radius: 5px;
+        position: relative;
+        padding-inline-start: 8px;
+        padding-inline-end: 8px;
+    }
+    .box button{
+        width: 20%;
+        height: 45px;
+        border-radius: 10px;
+        outline: none;
+        border: none;
+        font-weight: bold;
+        color: white;
+        background-color: black;
+        font-size: 18px;
+        margin-left: 10px;
+        cursor: pointer;
+        outline: none;
+    }
+    .box button:hover{
+        background-color: yellow;
+        color: black;
+        transition: all ease 0.5s;
+        transform: scale(1.1);
+        border: none;
+        box-shadow: 0px 0px 10px 2px rgb(0, 0, 0);
+    }
+    .box button:focus{
+        background-color: rgb(87, 243, 87);
+        color: black;
+        box-shadow: 0px 0px 10px 2px green;
+        transition: all ease 0.8s;
+    }
+    .show{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+    }
+    p{
+        font-size: 30px;
+        letter-spacing: 1px;
+        margin-top: 50px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+</style>
+<body>
+    <div class="container">
+        <div class="calculator">
+            <h1>Age Calculator</h1>
+            <div class="box">
+                <input type="date" id="date" required>
+                <button onclick="calculate()">Calculate</button>
+            </div>
+           
+        </div>
+        <div class="show">
+            <p id="result"></p>
+        </div>
+    </div>
+    <script>
+
+        let userIn = document.getElementById("date");
+        userIn.max = new Date().toISOString().split("T")[0];
+        let result = document.getElementById("result");
+
+        function calculate() {
+            let Birth = new Date(userIn.value);
+            let d = Birth.getDate();
+            let m = Birth.getMonth() + 1;
+            let y = Birth.getFullYear();
+            let today = new Date();
+            let d1 = today.getDate();
+            let m1 = today.getMonth() + 1;
+            let y1 = today.getFullYear();
+
+            let d2, m2, y2;
+            y2 = y1 - y;
+
+            if (m1 >= m) {
+                m2 = m1 - m;
+            } else {
+                y2--;
+                m2 = 12 + m1 - m;
+            }
+
+            if (d1 >= d) {
+                d2 = d1 - d;
+            } else {
+                m2--;
+                d2 = getdays(y, m) + d1 - d;
+            }
+
+            if (m2 < 0) {
+                m2 = 11;
+                y2--;
+            }
+
+            result.innerHTML = `🎉 You are ${y2} Years ${m2} Months ${d2} days Old  🎂`;
+        }
+
+        function getdays(year, month) {
+            return new Date(year, month, 0).getDate();
+        }
+
+    </script>
+</body>
+</html>
